@@ -7,36 +7,33 @@
   <meta name="description" content="精工数字工坊 · 机械图纸 · 3D模型 · 翻页说明书 · 建筑模板源码。即买即得，零库存零物流。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     /* ================================================================
        GalaGranda · 精工数字工坊
-       V4 — 极致极简 · 杂志级品质 · 奢侈品电商质感
-       设计语言：大量留白 · 超大字距对比 · 柔和石色基底
+       V5 — 暗调工业 · 精工质感 · 力量美学
+       设计语言：深色基底 + 琥珀光 + 极端排版对比 + 精密感
        ================================================================ */
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --stone: #f4f1ea;
-      --stone-deep: #eae6dd;
-      --paper: #ffffff;
-      --ink: #1a1a1a;
-      --ink-soft: #555048;
-      --ink-muted: #a39e94;
-      --navy: #1b2838;
-      --navy-dim: rgba(27, 40, 56, 0.05);
-      --navy-light: rgba(27, 40, 56, 0.15);
-      --bronze: #a67c52;
-      --bronze-dim: rgba(166, 124, 82, 0.15);
-      --border: #e2ddd4;
-      --line: rgba(0,0,0,0.04);
+      --pit: #0c0c0e;
+      --pit-soft: #16161a;
+      --pit-mid: #222228;
+      --surface: #2a2a30;
+      --frost: #ecece7;
+      --frost-dim: rgba(236, 236, 231, 0.45);
+      --amber: #c97f38;
+      --amber-glow: rgba(201, 127, 56, 0.15);
+      --amber-dim: rgba(201, 127, 56, 0.06);
+      --line: rgba(255, 255, 255, 0.06);
+      --line-bold: rgba(255, 255, 255, 0.10);
 
       --f-d: 'Playfair Display', Georgia, serif;
       --f-b: 'Outfit', system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
       --f-m: 'JetBrains Mono', monospace;
       --sp: cubic-bezier(0.16, 1, 0.3, 1);
-      --sp-o: cubic-bezier(0.34, 1.56, 0.64, 1);
 
       --sec-py: clamp(7rem, 12vw, 12rem);
     }
@@ -45,350 +42,339 @@
     body {
       font-family: var(--f-b);
       font-weight: 300;
-      color: var(--ink);
-      background: var(--stone);
+      color: var(--frost);
+      background: var(--pit);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
 
-    /* ─── NAV — ultra minimal ─── */
+    /* ─── NOISE ─── */
+    .noise {
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 1.8rem 2rem;
+      padding: 2rem 2rem;
       display: flex; justify-content: space-between; align-items: center;
       transition: all 0.6s var(--sp);
     }
     nav.scrolled {
-      background: rgba(244, 241, 234, 0.88);
+      background: rgba(12, 12, 14, 0.92);
       backdrop-filter: blur(32px);
       border-bottom: 1px solid var(--line);
       padding: 1rem 2rem;
     }
     .nb {
-      font-size: 0.75rem; font-weight: 400;
-      letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--ink);
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--frost);
     }
     .nl { display: flex; gap: 2.5rem; }
     .nl a {
       font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em;
-      color: var(--ink-muted); transition: all 0.4s var(--sp);
+      color: rgba(255,255,255,0.3); transition: color 0.4s var(--sp);
       position: relative;
     }
-    .nl a:hover { color: var(--ink); }
+    .nl a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--amber);
+      transition: width 0.5s var(--sp);
+    }
+    .nl a:hover { color: var(--frost); }
+    .nl a:hover::after { width: 100%; }
 
-    /* ─── HERO — editorial split ─── */
+    /* ─── HERO — bold industrial ─── */
     .hero {
       position: relative; z-index: 1; min-height: 100dvh;
       display: flex; align-items: center; overflow: hidden;
     }
     .hero-bg {
       position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 45% at 30% 25%, rgba(201,127,56,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 75% 65%, rgba(201,127,56,0.02) 0%, transparent 50%);
+    }
+    .hero-glow {
+      position: absolute; top: 20%; right: -10%;
+      width: 50vw; height: 50vh;
+      background: radial-gradient(ellipse, rgba(201,127,56,0.03) 0%, transparent 70%);
+      pointer-events: none;
     }
     .hero-content {
       position: relative; z-index: 2; width: 100%;
       padding: 8rem 0 4rem;
     }
 
+    /* Bold split layout */
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
+      grid-template-columns: 1.4fr 0.6fr;
       gap: 4rem;
+      align-items: end;
     }
 
-    .hero-left {
-      padding-top: 1rem;
-    }
     .hero-badge {
-      display: inline-block;
       font-size: 0.5rem; text-transform: uppercase;
       letter-spacing: 0.4em;
-      color: var(--bronze);
-      padding-bottom: 2rem;
-      position: relative;
-    }
-    .hero-badge::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0;
-      width: 3rem; height: 1px;
-      background: var(--bronze-dim);
+      color: var(--amber);
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+      display: inline-block;
+      margin-bottom: 0.5rem;
     }
     .hero-h1 {
-      font-family: var(--f-d); font-weight: 600;
-      font-size: clamp(3.5rem, 8vw, 6.5rem);
-      line-height: 0.9;
-      letter-spacing: -0.05em;
+      font-family: var(--f-d); font-weight: 700;
+      font-size: clamp(3.8rem, 9vw, 7rem);
+      line-height: 0.88;
+      letter-spacing: -0.06em;
       margin-top: 2rem;
     }
     .hero-h1 .ln { display: block; }
-    .hero-h1 .accent {
-      color: var(--navy);
-      font-style: italic;
-      font-weight: 500;
+    .hero-h1 .acc {
+      color: var(--amber); font-style: italic;
     }
     .hero-p {
-      color: var(--ink-soft);
-      font-size: 0.85rem;
-      line-height: 1.8;
-      margin-top: 2rem;
-      max-width: 36ch;
+      font-size: 0.85rem; line-height: 1.8;
+      color: var(--frost-dim);
+      margin-top: 2rem; max-width: 36ch;
     }
     .hero-actions {
       display: flex; gap: 1.2rem;
-      margin-top: 2.5rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
     }
     .btn {
       display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.75rem 2.2rem;
-      font-size: 0.7rem; font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.15em;
+      padding: 0.85rem 2.5rem;
+      font-size: 0.65rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.2em;
       transition: all 0.5s var(--sp);
       cursor: pointer; border: none;
     }
-    .btn-primary {
-      background: var(--navy); color: var(--stone);
+    .btn-p {
+      background: var(--amber); color: var(--pit);
     }
-    .btn-primary:hover {
-      background: var(--ink); transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(27,40,56,0.15);
+    .btn-p:hover {
+      background: #d88f3e; transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(201,127,56,0.2);
     }
-    .btn-outline {
-      background: transparent; color: var(--ink);
-      border: 1px solid var(--border);
+    .btn-s {
+      background: transparent; color: var(--frost);
+      border: 1px solid var(--line-bold);
     }
-    .btn-outline:hover {
-      background: var(--ink); color: var(--stone);
-      border-color: var(--ink); transform: translateY(-3px);
+    .btn-s:hover {
+      background: var(--frost); color: var(--pit);
+      border-color: var(--frost); transform: translateY(-3px);
     }
 
-    /* Hero right — stats vertical */
-    .hero-right {
-      display: flex; flex-direction: column;
-      justify-content: flex-end;
-      padding-bottom: 2rem;
-    }
     .hero-stat {
-      padding: 1.5rem 0;
-      border-bottom: 1px solid var(--border);
+      padding-left: 2rem;
+      border-left: 1px solid var(--line);
     }
-    .hero-stat:last-child { border-bottom: none; }
-    .hero-stat .num {
-      font-size: 2.8rem;
-      font-family: var(--f-d);
-      font-weight: 500;
-      line-height: 1;
-      color: var(--navy);
+    .hs-item {
+      padding: 1.2rem 0;
     }
-    .hero-stat .lbl {
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--ink-muted);
+    .hs-item + .hs-item {
+      border-top: 1px solid var(--line);
+    }
+    .hs-num {
+      font-family: var(--f-d); font-size: 1.8rem;
+      font-weight: 500; color: var(--amber); line-height: 1;
+    }
+    .hs-lbl {
+      font-size: 0.55rem; text-transform: uppercase;
+      letter-spacing: 0.15em; color: var(--frost-dim);
       margin-top: 0.3rem;
     }
 
     .scroll-hint {
-      position: absolute;
-      bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 1rem; align-items: center;
+      position: absolute; bottom: 2rem; left: 0; right: 0;
+      text-align: center; display: flex; justify-content: center; gap: 0.8rem; align-items: center;
     }
     .scroll-hint span {
       font-size: 0.45rem; text-transform: uppercase;
-      letter-spacing: 0.3em; color: var(--ink-muted);
+      letter-spacing: 0.3em; color: rgba(255,255,255,0.15);
     }
     .scroll-line {
-      width: 2rem; height: 1px;
-      background: var(--bronze-dim);
-      animation: sW 2s ease-in-out infinite;
+      width: 40px; height: 1px;
+      background: var(--amber-dim);
+      animation: sPulse 2.2s ease-in-out infinite;
     }
-    @keyframes sW {
-      0%, 100% { width: 2rem; opacity: 0.2; }
-      50% { width: 4rem; opacity: 0.6; }
+    @keyframes sPulse {
+      0%, 100% { width: 40px; opacity: 0.2; }
+      50% { width: 70px; opacity: 0.5; }
     }
 
-    /* ─── SECTION — supremely clean ─── */
+    /* ─── SECTION ─── */
     section { position: relative; z-index: 1; }
-    .sec-stone { background: var(--stone); padding: var(--sec-py) 0; }
-    .sec-paper { background: var(--paper); padding: var(--sec-py) 0; }
-    .sec-dark {
-      background: var(--navy); color: rgba(255,255,255,0.9);
+    .sec-pit { background: var(--pit); padding: var(--sec-py) 0; }
+    .sec-soft { background: var(--pit-soft); padding: var(--sec-py) 0; }
+    .sec-amber {
+      background: var(--amber);
+      color: var(--pit);
       padding: var(--sec-py) 0;
     }
-    .sec-dark .sec-label { color: var(--bronze); }
-    .sec-dark .sec-p { color: rgba(255,255,255,0.5); }
 
     .sec-label {
       font-size: 0.5rem; text-transform: uppercase;
-      letter-spacing: 0.35em; color: var(--bronze);
-      margin-bottom: 1rem; font-weight: 400;
+      letter-spacing: 0.35em; color: var(--amber);
+      margin-bottom: 0.8rem; font-weight: 400;
     }
+    .sec-amber .sec-label { color: rgba(0,0,0,0.4); }
     .sec-title {
-      font-family: var(--f-d); font-weight: 500;
-      font-size: clamp(2rem, 4.5vw, 3.5rem);
-      line-height: 1.05;
+      font-family: var(--f-d); font-weight: 600;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.02;
       margin-bottom: 3.5rem;
+      letter-spacing: -0.02em;
     }
-    .sec-dark .sec-title { color: var(--stone); }
+    .sec-sub {
+      font-size: 0.85rem; color: var(--frost-dim);
+      max-width: 40ch; line-height: 1.8;
+    }
 
     .rv {
       opacity: 0; transform: translateY(30px);
-      transition: opacity 1s var(--sp), transform 1s var(--sp);
+      transition: opacity 0.9s var(--sp), transform 0.9s var(--sp);
     }
     .rv.vi { opacity: 1; transform: translateY(0); }
     .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
     .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
-    .d5 { transition-delay: 0.5s; }
 
-    /* ─── PRODUCTS — editorial grid ─── */
+    /* ─── PRODUCTS — bold 2×2 ─── */
     .pd-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1px;
-      background: var(--border);
+      background: var(--line);
     }
-    .pd-card {
-      padding: 3rem 2.5rem;
-      background: var(--paper);
-      transition: all 0.6s var(--sp);
+    .pd-cd {
+      padding: 3.5rem 3rem;
+      background: var(--pit-soft);
+      transition: all 0.5s var(--sp);
+      position: relative; overflow: hidden;
       cursor: default;
-      position: relative;
     }
-    .pd-card:hover {
-      background: rgba(166, 124, 82, 0.02);
+    .pd-cd::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 100%; height: 0;
+      background: linear-gradient(to bottom, var(--amber-dim), transparent);
+      transition: height 0.5s var(--sp);
     }
+    .pd-cd:hover::before { height: 100%; }
+    .pd-cd:hover { background: var(--pit); }
     .pd-tag {
       display: inline-block;
-      font-family: var(--f-m);
-      font-size: 0.5rem;
-      color: var(--bronze);
-      padding: 0.2rem 0.6rem;
-      border: 1px solid var(--bronze-dim);
-      margin-bottom: 1rem;
-      letter-spacing: 0.05em;
+      font-family: var(--f-m); font-size: 0.5rem;
+      color: var(--amber); letter-spacing: 0.05em;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--amber-glow);
+      position: relative; z-index: 1;
     }
-    .pd-card h3 {
-      font-family: var(--f-d); font-size: 1.4rem;
-      font-weight: 500; margin-bottom: 0.6rem;
+    .pd-cd h3 {
+      font-family: var(--f-d); font-size: 1.5rem;
+      font-weight: 500; margin: 1.2rem 0 0.6rem;
+      position: relative; z-index: 1;
     }
-    .pd-card p {
-      font-size: 0.8rem; color: var(--ink-soft);
-      line-height: 1.7; max-width: 38ch;
+    .pd-cd p {
+      font-size: 0.78rem; color: var(--frost-dim);
+      line-height: 1.7; max-width: 36ch;
+      position: relative; z-index: 1;
     }
     .pd-foot {
       display: flex; justify-content: space-between;
       align-items: center;
       margin-top: 1.5rem; padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--line);
+      position: relative; z-index: 1;
     }
     .pd-price {
-      font-family: var(--f-m); font-size: 1rem;
-      color: var(--navy);
+      font-family: var(--f-m); font-size: 1rem; font-weight: 500;
+      color: var(--amber);
     }
     .pd-arr {
-      font-size: 0.7rem; color: var(--ink-muted);
-      transition: transform 0.4s var(--sp), color 0.3s;
+      font-size: 0.7rem; color: rgba(255,255,255,0.2);
+      transition: all 0.4s var(--sp);
     }
-    .pd-card:hover .pd-arr {
-      transform: translateX(4px);
-      color: var(--navy);
+    .pd-cd:hover .pd-arr {
+      transform: translateX(6px);
+      color: var(--amber);
     }
 
-    /* ─── FEATURES — 3 col clean ─── */
+    /* ─── FEATURES — tall 3-col ─── */
     .feat-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--border);
+      gap: 1px;
+      background: var(--line);
     }
-    .feat-card {
+    .feat-cd {
       padding: 3rem 2.5rem;
-      background: var(--stone);
+      background: var(--pit-soft);
       transition: all 0.5s var(--sp);
     }
-    .feat-card:hover {
-      background: var(--paper);
-    }
+    .feat-cd:hover { background: rgba(201,127,56,0.03); }
     .feat-num {
       font-family: var(--f-m); font-size: 0.6rem;
-      color: var(--bronze); margin-bottom: 1.2rem;
+      color: var(--amber-dim); margin-bottom: 1.5rem;
     }
-    .feat-card h3 {
+    .feat-cd h3 {
       font-family: var(--f-d); font-size: 1.2rem;
       font-weight: 500; margin-bottom: 0.8rem;
     }
-    .feat-card p {
-      font-size: 0.8rem; color: var(--ink-soft);
+    .feat-cd p {
+      font-size: 0.78rem; color: var(--frost-dim);
       line-height: 1.7;
     }
 
-    /* ─── MANIFESTO / ABOUT ─── */
-    .manifesto {
-      max-width: 620px; margin: 0 auto;
+    /* ─── ABOUT / CTA ─── */
+    .about-wrap {
+      max-width: 540px; margin: 0 auto;
       text-align: center;
     }
-    .manifesto .label-line {
-      width: 2rem; height: 1px;
-      background: var(--bronze-dim);
+    .about-line {
+      width: 2.5rem; height: 1px;
+      background: var(--amber-glow);
       margin: 0 auto 1.5rem;
     }
-    .manifesto h2 {
-      font-family: var(--f-d); font-weight: 500;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
+    .cta-h {
+      font-family: var(--f-d); font-weight: 600;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1; margin-bottom: 0.8rem;
     }
-    .manifesto p {
-      font-size: 0.9rem; color: var(--ink-soft);
-      line-height: 1.9;
+    .cta-p {
+      font-size: 0.85rem; line-height: 1.8;
+      opacity: 0.65;
     }
-
-    /* ─── CTA ─── */
-    .cta-block {
-      text-align: center;
-      max-width: 480px; margin: 0 auto;
-    }
-    .cta-block .cta-h {
-      font-family: var(--f-d); font-weight: 500;
-      font-size: clamp(1.5rem, 3.5vw, 2.8rem);
-      line-height: 1.15; color: var(--stone);
-    }
-    .cta-block .cta-p {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.8rem; margin-top: 1rem;
-    }
-    .cta-block .cta-link {
-      display: inline-block;
-      margin-top: 2rem;
-      font-size: 0.65rem; text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--bronze);
-      border-bottom: 1px solid var(--bronze-dim);
-      padding-bottom: 0.25rem;
+    .cta-link {
+      display: inline-block; margin-top: 2rem;
+      font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.25em; color: var(--pit);
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      padding-bottom: 0.2rem;
       transition: all 0.4s var(--sp);
     }
-    .cta-block .cta-link:hover {
-      color: var(--stone);
-      border-color: var(--stone);
-    }
+    .cta-link:hover { border-color: var(--pit); letter-spacing: 0.35em; }
 
     /* ─── FOOTER ─── */
     footer {
       padding: 4rem 0; text-align: center;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--line);
     }
-    footer p {
-      font-size: 0.55rem; color: var(--ink-muted);
+    footer p { font-size: 0.55rem; color: rgba(255,255,255,0.15);
       letter-spacing: 0.1em;
     }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-right { flex-direction: row; gap: 2rem; flex-wrap: wrap; }
-      .hero-stat { border-bottom: none; padding: 0.8rem 0; }
+      .hero-stat { border-left: none; padding: 0; display: flex; gap: 2rem; }
+      .hs-item { border-top: none !important; }
     }
     @media (max-width: 768px) {
       .container { padding: 0 1.25rem; }
@@ -396,56 +382,60 @@
       .nl { display: none; }
       .pd-grid { grid-template-columns: 1fr; }
       .feat-grid { grid-template-columns: 1fr; }
-      .hero-h1 { font-size: 2.8rem; }
+      .hero-h1 { font-size: 3rem; }
+      .hero-stat { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
+
+  <div class="noise" aria-hidden="true"></div>
 
   <!-- NAV -->
   <nav id="nav">
     <div class="nb">GalaGranda</div>
     <div class="nl">
       <a href="#products">产品</a>
-      <a href="#features">特色</a>
+      <a href="#features">工艺</a>
       <a href="#about">理念</a>
       <a href="#cta">联系</a>
     </div>
   </nav>
 
-  <!-- HERO — editorial split -->
-  <section class="hero">
+  <!-- HERO -->
+  <section class="hero" id="hero">
     <div class="hero-bg"></div>
+    <div class="hero-glow"></div>
     <div class="container">
       <div class="hero-content">
         <div class="hero-grid">
-          <div class="hero-left">
-            <div class="hero-badge">数字工坊 · 零库存</div>
+          <div>
+            <div class="hero-badge">精工数字工坊 · 零库存</div>
             <h1 class="hero-h1">
-              <span class="ln">精工机械</span>
-              <span class="ln accent">触手可及</span>
+              <span class="ln">精密机械</span>
+              <span class="ln acc">触手可及</span>
             </h1>
             <p class="hero-p">
-              从机械模型的几何语言到建筑模板的设计系统——<br />
-              每一件数字产品都来自一线实战的积累，即买即得。
+              从机械模型的几何语言到建筑模板的设计系统—<br />
+              每件数字产品都来自一线实战积累，即买即得。
             </p>
             <div class="hero-actions">
-              <a href="#products" class="btn btn-primary">探索产品</a>
-              <a href="#features" class="btn btn-outline">精工之道</a>
+              <a href="#products" class="btn btn-p">探索产品</a>
+              <a href="#features" class="btn btn-s">精工工艺</a>
             </div>
           </div>
-          <div class="hero-right">
-            <div class="hero-stat">
-              <div class="num">4</div>
-              <div class="lbl">产品线 · 精工分类</div>
+          <div class="hero-stat">
+            <div class="hs-item">
+              <div class="hs-num">4</div>
+              <div class="hs-lbl">产品线</div>
             </div>
-            <div class="hero-stat">
-              <div class="num">⚡</div>
-              <div class="lbl">即买即交付 · 零等待</div>
+            <div class="hs-item">
+              <div class="hs-num">即买即交付</div>
+              <div class="hs-lbl">零等待</div>
             </div>
-            <div class="hero-stat">
-              <div class="num">$9–29</div>
-              <div class="lbl">零门槛 · 数字产品</div>
+            <div class="hs-item">
+              <div class="hs-num">$9–29</div>
+              <div class="hs-lbl">零门槛</div>
             </div>
           </div>
         </div>
@@ -457,13 +447,13 @@
     </div>
   </section>
 
-  <!-- PRODUCTS — 2x2 editorial grid -->
-  <section class="sec-paper" id="products">
+  <!-- PRODUCTS -->
+  <section class="sec-soft" id="products">
     <div class="container">
-      <p class="sec-label rv" style="text-align:center; display:block;">Digital Products</p>
+      <p class="sec-label rv" style="text-align:center;">Digital Products</p>
       <h2 class="sec-title rv d1" style="text-align:center;">精选产品线</h2>
       <div class="pd-grid rv d2">
-        <div class="pd-card">
+        <div class="pd-cd">
           <div class="pd-tag">机械 · 3D</div>
           <h3>机械模型图纸包</h3>
           <p>L1 04类机械设备3D模型与拆解图。含装配图、爆炸视图，工程级精度数字资产。</p>
@@ -472,7 +462,7 @@
             <span class="pd-arr">→</span>
           </div>
         </div>
-        <div class="pd-card">
+        <div class="pd-cd">
           <div class="pd-tag">翻页 · 电子书</div>
           <h3>翻页电子说明书</h3>
           <p>Flipbook格式产品手册与拆解指南。在线翻页阅读器，即购即读，无需额外软件。</p>
@@ -481,7 +471,7 @@
             <span class="pd-arr">→</span>
           </div>
         </div>
-        <div class="pd-card">
+        <div class="pd-cd">
           <div class="pd-tag">模板 · 源码</div>
           <h3>建筑模板源码包</h3>
           <p>Arch01-10 全套HTML/CSS模板源码。响应式架构，拿来即用，可直接部署生产环境。</p>
@@ -490,7 +480,7 @@
             <span class="pd-arr">→</span>
           </div>
         </div>
-        <div class="pd-card">
+        <div class="pd-cd">
           <div class="pd-tag">指南 · 工具</div>
           <h3>DIY工具指南</h3>
           <p>实物拆解维修电子书。从工具选择到完整流程，配有标注图与解说，适合动手爱好者。</p>
@@ -504,22 +494,22 @@
   </section>
 
   <!-- FEATURES -->
-  <section class="sec-stone" id="features">
+  <section class="sec-pit" id="features">
     <div class="container">
-      <p class="sec-label rv" style="text-align:center; display:block;">Why Choose Us</p>
-      <h2 class="sec-title rv d1" style="text-align:center;">精工之道</h2>
+      <p class="sec-label rv" style="text-align:center;">Craft</p>
+      <h2 class="sec-title rv d1" style="text-align:center;">精工工艺</h2>
       <div class="feat-grid rv d2">
-        <div class="feat-card">
+        <div class="feat-cd">
           <p class="feat-num">001</p>
           <h3>精工打磨</h3>
           <p>每件产品都经过实务雕琢，细节至每一个螺丝孔。所见即所得。</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-cd">
           <p class="feat-num">002</p>
           <h3>零等待交付</h3>
           <p>数字产品天然零库存。下单即获下载链接，无视供应链延迟。</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-cd">
           <p class="feat-num">003</p>
           <h3>透明预览</h3>
           <p>完整视觉展示、规格说明与示例预览。不卖盲盒，不画大饼。</p>
@@ -528,25 +518,24 @@
     </div>
   </section>
 
-  <!-- MANIFESTO / ABOUT -->
-  <section class="sec-paper" id="about">
+  <!-- ABOUT -->
+  <section class="sec-soft" id="about">
     <div class="container">
-      <div class="manifesto rv">
-        <div class="label-line"></div>
-        <p class="sec-label" style="display:block; text-align:center;">About</p>
-        <h2>GalaGranda</h2>
-        <p>
-          数字产品不需要中间商。从机械模型的几何美学到建筑模板的设计系统，每件产品都来自一线实战的积累。<br /><br />
-          零库存，零物流，零妥协。
+      <div class="about-wrap rv">
+        <div class="about-line"></div>
+        <p class="sec-label" style="text-align:center;">About</p>
+        <h2 class="sec-title" style="margin-bottom:1rem;">GalaGranda</h2>
+        <p class="sec-sub" style="max-width:45ch; margin:0 auto;">
+          数字产品不需要中间商。从机械模型的几何美学到建筑模板的设计系统，每件产品都来自一线实战的积累。零库存，零妥协。
         </p>
       </div>
     </div>
   </section>
 
-  <!-- CTA — navy section -->
-  <section class="sec-dark" id="cta">
+  <!-- CTA — amber section -->
+  <section class="sec-amber" id="cta">
     <div class="container">
-      <div class="cta-block rv">
+      <div class="about-wrap rv">
         <p class="cta-h">精工问道</p>
         <p class="cta-p">产品咨询、定制需求——欢迎联系。</p>
         <span class="cta-link">OpenClaw · WeChat</span>
@@ -564,14 +553,10 @@
   <script>
     (function() {
       'use strict';
-
-      /* NAV */
       const nav = document.getElementById('nav');
       window.addEventListener('scroll', () => {
         nav.classList.toggle('scrolled', window.scrollY > 80);
       }, { passive: true });
-
-      /* SCROLL REVEAL */
       const obs = new IntersectionObserver(entries => {
         entries.forEach(e => {
           if (e.isIntersecting) {
